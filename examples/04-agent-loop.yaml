@@ -1,0 +1,83 @@
+# 04 — Agent loop
+# ============================================================================
+# A multi-step agent that uses an LLM to decide what to do next.
+# Memory accumulates in a value cell. Termination is a listener.
+# ============================================================================
+
+cells:
+  - id: goal
+    kind: value
+    value: "Find the cheapest flight from NYC to LON next Friday"
+
+  - id: step
+    kind: value
+    default: 0
+
+  - id: memory
+    kind: value
+    default: []
+
+  - id: thought
+    kind: ai.llm
+    provider: zai
+    model: glm-4.5
+    prompt: |
+      Goal: {{goal}}
+      Memory so far: {{memory}}
+      Step: {{step}}
+
+      What should I do next? Respond with a single action from:
+      - SEARCH_FLIGHTS
+      - SEARCH_HOTELS
+      - COMPARE_PRICES
+      - BOOK
+      - DONE
+
+      If you have enough info, respond DONE.
+    temperature: 0.3
+    max_tokens: 50
+
+  - id: action
+    kind: router
+    routes:
+      - when: 'thought.value && thought.value.includes("SEARCH_FLIGHTS")'
+        then: "search.flights"
+      - when: 'thought.value && thought.value.includes("SEARCH_HOTELS")'
+        then: "search.hotels"
+      - when: 'thought.value && thought.value.includes("COMPARE_PRICES")'
+        then: "compare"
+      - when: 'thought.value && thought.value.includes("BOOK")'
+        then: "book"
+      - when: 'thought.value && thought.value.includes("DONE")'
+        then: "done"
+
+  - id: search.flights
+    kind: api
+    endpoint: "https://api.example.com/flights?from=NYC&to=LON"
+    method: GET
+
+  - id: search.hotels
+    kind: api
+    endpoint: "https://api.example.com/hotels?city=LON"
+    method: GET
+
+  - id: compare
+    kind: ai.llm
+    provider: zai
+    model: glm-4.5
+    prompt: "Compare these and pick the cheapest:\n{{search.flights}}\n{{search.hotels}}"
+
+  - id: book
+    kind: api
+    endpoint: "https://api.example.com/book"
+    method: POST
+    body: '{"flight": "{{compare}}"}'
+
+  - id: done
+    kind: value
+    default: true
+
+  - id: step.increment
+    kind: listener
+    when: "step.value < 10 && !done.value"
+    action: "step.value = step.value + 1; memory.value = memory.concat([thought.value])"

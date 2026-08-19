@@ -1,0 +1,43 @@
+{
+  "name": "@quilt/ai",
+  "version": "0.1.0",
+  "description": "AI cells for Quilt — 4 providers, 8 cell kinds, one uniform interface. LLMs, embeddings, vision, translation, code, all as first-class reactive cells.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./zai": "./dist/providers/zai.js",
+    "./kimi": "./dist/providers/kimi.js",
+    "./deepseek": "./dist/providers/deepseek.js",
+    "./cloudflare": "./dist/providers/cloudflare.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "node test/*.test.js",
+    "lint": "tsc --noEmit"
+  },
+  "keywords": [
+    "quilt",
+    "reactive",
+    "cellular",
+    "ai",
+    "llm",
+    "embeddings",
+    "z.ai",
+    "kimi",
+    "deepseek",
+    "cloudflare"
+  ],
+  "author": "SuperInstance",
+  "license": "MIT",
+  "dependencies": {
+    "@quilt/core": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.0",
+    "@types/node": "^20.0.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

@@ -1,0 +1,23 @@
+# 01 — Basic LLM cell
+# ============================================================================
+# The simplest possible AI sheet: a value cell + an LLM cell.
+# When `question` changes, `answer` updates reactively.
+# ============================================================================
+
+cells:
+  - id: question
+    kind: value
+    value: "What is Quilt?"
+    description: User's question
+
+  - id: answer
+    kind: ai.llm
+    provider: zai
+    model: glm-4.5
+    prompt: "{{question}}"
+    description: The LLM's answer
+
+  - id: displayed
+    kind: formula
+    value: 'answer.value || "thinking..."'
+    description: What we show in the UI

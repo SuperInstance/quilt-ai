@@ -1,0 +1,51 @@
+# 03 — RAG (Retrieval-Augmented Generation)
+# ============================================================================
+# A simple RAG pattern: embed the question, search a vector store for
+# top-K matches, then ask the LLM with the matches as context.
+#
+# In production, the vector store would be Cloudflare Vectorize, Pinecone,
+# or a local file. This example uses a small in-memory vector store.
+# ============================================================================
+
+cells:
+  - id: question
+    kind: value
+    value: "How do I deploy Quilt to Cloudflare?"
+
+  - id: docs
+    kind: value
+    value:
+      - "Quilt is a reactive, typed, cellular runtime."
+      - "To deploy to Cloudflare, run: npx wrangler deploy"
+      - "Quilt cells can be values, formulas, programs, sensors, APIs, listeners, routers, and IO ports."
+      - "Cloudflare Workers run your code on 200+ edge locations worldwide."
+      - "Cloudflare D1 is a serverless SQLite database with global replication."
+      - "Cloudflare Vectorize provides vector search at the edge with sub-50ms latency."
+      - "Cloudflare KV is a globally distributed key-value store with sub-10ms reads."
+
+  - id: question.embed
+    kind: ai.embed
+    provider: cloudflare
+    model: "@cf/baai/bge-base-en-v1.5"
+    input: question.value
+
+  - id: matches
+    kind: vectorize.search
+    vector: question.embed
+    top_k: 3
+    candidates: docs
+
+  - id: answer
+    kind: ai.llm
+    provider: zai
+    model: glm-4.5
+    prompt: |
+      Use the following context to answer the question. If the context doesn't contain the answer, say so.
+
+      Context:
+      {{matches}}
+
+      Question: {{question}}
+
+      Answer:
+    temperature: 0.2

@@ -1,0 +1,51 @@
+# 06 — Image generation pipeline
+# ============================================================================
+# A multi-step image pipeline: idea → prompt enhancement → image generation
+# Uses z.ai for prompt enhancement, Cloudflare SDXL for image generation.
+# ============================================================================
+
+cells:
+  - id: idea
+    kind: value
+    value: "a cozy coffee shop on a rainy day, viewed from inside"
+
+  - id: prompt.enhanced
+    kind: ai.llm
+    provider: zai
+    model: glm-4.5
+    prompt: |
+      You are an image prompt engineer. Take this idea and turn it into a detailed, vivid image generation prompt.
+      Include: subject, lighting, mood, color palette, composition, style.
+
+      Idea: {{idea}}
+
+      Enhanced prompt (no preamble, just the prompt):
+    temperature: 0.7
+    max_tokens: 200
+
+  - id: prompt.negative
+    kind: ai.llm
+    provider: zai
+    model: glm-4.5
+    prompt: |
+      What should be EXCLUDED from this image?
+      {{prompt.enhanced}}
+
+      Negative prompt (1-2 lines, comma-separated):
+    temperature: 0.5
+    max_tokens: 50
+
+  - id: image
+    kind: ai.image
+    provider: cloudflare
+    model: "@cf/stabilityai/stable-diffusion-xl-base-1.0"
+    prompt: "{{prompt.enhanced}}"
+    negative: "{{prompt.negative}}"
+    size: "1024x1024"
+
+  - id: caption
+    kind: ai.vision
+    provider: cloudflare
+    model: "@cf/llava-hf/llava-1.5-7b-hf"
+    image: image.url
+    prompt: "Describe this image in 1-2 sentences for alt text."

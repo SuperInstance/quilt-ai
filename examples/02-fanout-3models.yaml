@@ -1,0 +1,47 @@
+# 02 — Fan-out: 3 models in parallel
+# ============================================================================
+# The same prompt goes to z.ai, Kimi, and DeepSeek in parallel.
+# Then a synthesis cell takes all 3 and combines them.
+# This is the "best of all worlds" pattern.
+# ============================================================================
+
+cells:
+  - id: prompt
+    kind: value
+    value: "Explain CRDTs in one sentence."
+
+  - id: answer.zai
+    kind: ai.llm
+    provider: zai
+    model: glm-4.5
+    prompt: "{{prompt}}"
+    max_tokens: 100
+
+  - id: answer.kimi
+    kind: ai.llm
+    provider: kimi
+    model: moonshot-v1-8k
+    prompt: "{{prompt}}"
+    max_tokens: 100
+
+  - id: answer.deepseek
+    kind: ai.llm
+    provider: deepseek
+    model: deepseek-chat
+    prompt: "{{prompt}}"
+    max_tokens: 100
+
+  - id: best
+    kind: ai.llm
+    provider: zai
+    model: glm-4.5
+    prompt: |
+      Pick the best of these 3 answers to: {{prompt}}
+
+      A (z.ai): {{answer.zai}}
+      B (Kimi): {{answer.kimi}}
+      C (DeepSeek): {{answer.deepseek}}
+
+      Best (A/B/C) and why in one sentence:
+    temperature: 0.3
+    max_tokens: 100

@@ -1,0 +1,56 @@
+# 05 — Cost control: route to cheaper model when over budget
+# ============================================================================
+# A real-world pattern: track cost as cells evaluate. When cost exceeds
+# budget, route future calls to a cheaper model.
+# ============================================================================
+
+cells:
+  - id: budget
+    kind: value
+    default: 0.10  # 10 cents per session
+
+  - id: total.cost
+    kind: value
+    default: 0
+
+  - id: total.tokens
+    kind: value
+    default: 0
+
+  - id: question
+    kind: value
+    value: "Explain quicksort"
+
+  # The expensive model
+  - id: answer.premium
+    kind: ai.llm
+    provider: zai
+    model: glm-4.5
+    prompt: "{{question}}"
+    max_tokens: 500
+    cost: 0.001  # tracked automatically
+
+  # The cheap model
+  - id: answer.cheap
+    kind: ai.llm
+    provider: deepseek
+    model: deepseek-chat
+    prompt: "{{question}}"
+    max_tokens: 500
+    cost: 0.0001
+
+  # The router: if we're over budget, use cheap; else use premium
+  - id: answer
+    kind: router
+    routes:
+      - when: "total.cost.value >= budget.value"
+        then: "answer.cheap"
+      - when: "total.cost.value < budget.value"
+        then: "answer.premium"
+
+  - id: log.cost
+    kind: listener
+    when: "answer.value"
+    action: |
+      total.cost.value = total.cost.value + answer.cost;
+      total.tokens.value = total.tokens.value + (answer.tokens || 0)
