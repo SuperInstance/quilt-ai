@@ -28,6 +28,9 @@
     "deepseek",
     "cloudflare"
   ],
+  "dependencies": {
+    "@quilt/evolve": "workspace:*"
+  },
   "author": "SuperInstance",
   "license": "MIT",
   "dependencies": {
