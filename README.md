@@ -4,19 +4,22 @@
 
 AI as a first-class cell kind in [Quilt](https://github.com/SuperInstance/quilt). Every LLM call, embedding, image, translation, sentiment, and code generation is a reactive cell that propagates with the rest of your sheet.
 
+```mermaid
+flowchart LR
+    t["input.text"] --> e["ai.embed<br/>(BGE)"]
+    e --> v["vector.search<br/>(top-K)"]
+    v --> l["ai.llm<br/>(z.ai)"]
+    l --> a["answer"]
+    z["ai.zai<br/>(expensive)"] --> r["router"]
+    d["ai.deepseek<br/>(cheap)"] --> r
+    b["budget.over"] --> r
+    r --> a
+    classDef provider fill:#1b2a4a,stroke:#e8a54b,color:#f5ead6
+    class z,d provider
 ```
-   ┌──────────────────────────────────────────┐
-   │           Quilt Sheet (YAML)             │
-   │                                          │
-   │  input.text ──▶ ai.embed ──▶ vector.search ──▶ ai.llm ──▶ answer
-   │                   (BGE)         (top-K)         (z.ai)      │
-   │                                                              │
-   │  budget.over ──┐                                            │
-   │                ▼                                            │
-   │  answer ◀── router ◀── ai.deepseek (cheap) ◀── ai.zai (expensive) │
-   │                                                                  │
-   └──────────────────────────────────────────┘
-```
+
+<!-- mermaid replaces the old ASCII sketch; the metaphor is unchanged:
+     one sheet, reactive cells, the router spending tokens only when it must. -->
 
 ## Install
 
