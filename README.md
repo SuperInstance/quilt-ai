@@ -217,7 +217,7 @@ See the [`examples/`](./examples) directory for complete sheets:
 npm test
 ```
 
-The test suite runs 6 unit tests. To run real API tests, set the env vars first.
+The test suite runs 7 unit tests. To run real API tests, set the env vars first.
 
 ## Part of Quilt
 
