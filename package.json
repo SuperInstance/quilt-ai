@@ -13,6 +13,7 @@
   },
   "scripts": {
     "build": "tsc",
+    "pretest": "npm run build",
     "test": "node test/*.test.js",
     "lint": "tsc --noEmit"
   },
@@ -28,12 +29,10 @@
     "deepseek",
     "cloudflare"
   ],
-  "dependencies": {
-    "@quilt/evolve": "workspace:*"
-  },
   "author": "SuperInstance",
   "license": "MIT",
   "dependencies": {
+    "@quilt/evolve": "workspace:*",
     "@quilt/core": "workspace:*"
   },
   "devDependencies": {
