@@ -6,3 +6,15 @@ src-build/
 .env
 .env.local
 src/providers-build/
+
+# added by commit-and-push-all
+__pycache__/
+*.pyc
+*.pyd
+.pytest_cache/
+*.egg-info/
+.eggs/
+*.egg
+target/
+.cache/
+.wrangler/
