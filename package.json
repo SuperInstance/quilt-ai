@@ -1,7 +1,7 @@
 {
   "name": "@quilt/ai",
   "version": "0.1.0",
-  "description": "AI cells for Quilt — 4 providers, 8 cell kinds, one uniform interface. LLMs, embeddings, vision, translation, code, all as first-class reactive cells.",
+  "description": "AI cells for Quilt \u2014 4 providers, 8 cell kinds, one uniform interface. LLMs, embeddings, vision, translation, code, all as first-class reactive cells.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "exports": {
@@ -15,6 +15,8 @@
     "build": "tsc",
     "pretest": "npm run build",
     "test": "node test/*.test.js",
+    "witness": "node witness/ledger.js",
+    "witness:verify": "node witness/ledger.js --verify",
     "lint": "tsc --noEmit"
   },
   "keywords": [
@@ -32,8 +34,8 @@
   "author": "SuperInstance",
   "license": "MIT",
   "dependencies": {
-    "@quilt/evolve": "workspace:*",
-    "@quilt/core": "workspace:*"
+    "@quilt/evolve": "file:../quilt-evolve",
+    "@quilt/core": "file:../quilt/packages/core"
   },
   "devDependencies": {
     "typescript": "^7.0.2",
