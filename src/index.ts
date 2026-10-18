@@ -1,9 +1,9 @@
 /**
- * @quilt/ai
+ * @superinstance/quilt-ai
  * ============================================================================
  * AI cells for Quilt — 4 providers, 8 cell kinds, one uniform interface.
  *
- *   import { AIEngine } from '@quilt/ai';
+ *   import { AIEngine } from '@superinstance/quilt-ai';
  *
  *   const engine = new AIEngine({
  *     zaiKey: process.env.ZAI_TOKEN,
@@ -21,7 +21,7 @@
  *   });
  *
  *   // Or wire it into a Quilt sheet
- *   import { Quilt } from '@quilt/core';
+ *   import { Quilt } from '@superinstance/quilt-core';
  *   const sheet = new Quilt({ ai: engine });
  *   sheet.load({
  *     cells: [

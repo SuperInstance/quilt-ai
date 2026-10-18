@@ -1,5 +1,5 @@
 /**
- * @quilt/ai — z.ai provider
+ * @superinstance/quilt-ai — z.ai provider
  * ============================================================================
  * z.ai (Zhipu AI) — GLM models.
  *

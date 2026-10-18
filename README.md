@@ -1,4 +1,4 @@
-# @quilt/ai — AI cells for Quilt
+# @superinstance/quilt-ai — AI cells for Quilt
 
 > **4 providers. 8 cell kinds. 1 uniform interface.**
 
@@ -24,13 +24,13 @@ flowchart LR
 ## Install
 
 ```bash
-npm install @quilt/ai
+npm install @superinstance/quilt-ai
 ```
 
 ## Quick start
 
 ```typescript
-import { AIEngine, createEngine } from '@quilt/ai';
+import { AIEngine, createEngine } from '@superinstance/quilt-ai';
 
 // Option 1: read keys from environment
 const ai = createEngine();
@@ -58,8 +58,8 @@ console.log(answer);
 Or wire it into a Quilt sheet:
 
 ```typescript
-import { Quilt } from '@quilt/core';
-import { AIEngine } from '@quilt/ai';
+import { Quilt } from '@superinstance/quilt-core';
+import { AIEngine } from '@superinstance/quilt-ai';
 
 const sheet = new Quilt({ ai: new AIEngine() });
 
@@ -221,16 +221,16 @@ The test suite runs 7 unit tests. To run real API tests, set the env vars first.
 
 ## Part of Quilt
 
-`@quilt/ai` is one of 13 packages in the Quilt ecosystem:
+`@superinstance/quilt-ai` is one of 13 packages in the Quilt ecosystem:
 
 | Package | Language | Description |
 |---------|----------|-------------|
-| [@quilt/core](https://github.com/SuperInstance/quilt) | TS | Reactive engine |
-| [@quilt/cli](https://github.com/SuperInstance/quilt) | TS | CLI + MCP server |
+| [@superinstance/quilt-core](https://github.com/SuperInstance/quilt) | TS | Reactive engine |
+| [@superinstance/quilt-cli](https://github.com/SuperInstance/quilt) | TS | CLI + MCP server |
 | [quilt-rust](https://github.com/SuperInstance/quilt-rust) | Rust | Sync + async engine |
 | [quilt-live](https://github.com/SuperInstance/quilt-live) | HTML | Single-file, offline |
 | [quilt-cloudflare](https://github.com/SuperInstance/quilt-cloudflare) | Workers | Edge-native with D1, Vectorize |
-| **@quilt/ai** (this) | TS | AI cells: 4 providers, 8 kinds |
+| **@superinstance/quilt-ai** (this) | TS | AI cells: 4 providers, 8 kinds |
 | [quilt-esp32](https://github.com/SuperInstance/quilt-esp32) | Rust | Microcontroller |
 | [quilt-mesh](https://github.com/SuperInstance/quilt-mesh) | TS | CRDT peer-to-peer |
 | [quilt-agent](https://github.com/SuperInstance/quilt-agent) | TS | LLM agent sheet |

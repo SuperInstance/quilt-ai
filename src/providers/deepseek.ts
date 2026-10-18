@@ -1,5 +1,5 @@
 /**
- * @quilt/ai — DeepSeek provider
+ * @superinstance/quilt-ai — DeepSeek provider
  * ============================================================================
  * DeepSeek — V3 Flash (chat) and R1 (reasoner).
  *

@@ -1,7 +1,7 @@
 /**
- * @quilt/ai — evolve example: prompt improvement
+ * @superinstance/quilt-ai — evolve example: prompt improvement
  * ============================================================================
- * Use the @quilt/evolve loop to improve an AI cell's prompt over time.
+ * Use the @superinstance/quilt-evolve loop to improve an AI cell's prompt over time.
  *
  * The system being evolved is a function that summarizes text.
  * The mutator rewrites the prompt template to get better scores.
@@ -15,7 +15,7 @@ const { AIEngine } = require('../dist/index.js');
 const {
   evolve, FunctionSystem, LLMGenerator, LLMJudge, LLMMutator, HeuristicJudge,
   summarize,
-} = require('@quilt/evolve');
+} = require('@superinstance/quilt-evolve');
 
 (async () => {
   const ai = new AIEngine({ zaiKey: process.env.ZAI_TOKEN });
@@ -62,7 +62,7 @@ const {
   });
 
   // The generator: a fixed pool (no LLM cost) — we'd swap in LLMGenerator for adversarial
-  const { SeededGenerator } = require('@quilt/evolve');
+  const { SeededGenerator } = require('@superinstance/quilt-evolve');
   const generator = new SeededGenerator([
     { text: 'Quilt is a reactive, typed, cellular runtime. It takes the spreadsheet model — a grid of named, reactive cells — and turns it into a general-purpose runtime. A cell can be a value, a formula, a program, a sensor, an API, a listener, a router, or an IO port. The same sheet can be deployed to a browser, a server, an edge function, a microcontroller, or a peer-to-peer mesh. The cell model is uniform across all of them.' },
     { text: 'Climate change is accelerating. Global average temperatures have risen 1.1°C since pre-industrial times. Reducing emissions requires coordinated action across governments, businesses, and individuals.' },
@@ -70,7 +70,7 @@ const {
   ]);
 
   // Run the loop
-  const { FullSheetScope } = require('@quilt/evolve');
+  const { FullSheetScope } = require('@superinstance/quilt-evolve');
   const result = await evolve({
     system, generator, judge, mutator,
     scope: new FullSheetScope(),
