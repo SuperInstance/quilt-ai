@@ -1,5 +1,5 @@
 /**
- * @quilt/ai — tests
+ * @superinstance/quilt-ai — tests
  * ============================================================================
  * Test the type system, engine logic, and provider routing.
  * These tests don't make real API calls.

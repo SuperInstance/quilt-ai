@@ -1,5 +1,5 @@
 {
-  "name": "@quilt/ai",
+  "name": "@superinstance/quilt-ai",
   "version": "0.1.0",
   "description": "AI cells for Quilt — 4 providers, 8 cell kinds, one uniform interface. LLMs, embeddings, vision, translation, code, all as first-class reactive cells.",
   "main": "dist/index.js",
@@ -32,8 +32,7 @@
   "author": "SuperInstance",
   "license": "MIT",
   "dependencies": {
-    "@quilt/evolve": "workspace:*",
-    "@quilt/core": "workspace:*"
+    "@superinstance/quilt-core": "^0.3.3"
   },
   "devDependencies": {
     "typescript": "^7.0.2",
@@ -41,5 +40,13 @@
   },
   "engines": {
     "node": ">=18"
+  },
+  "peerDependencies": {
+    "@superinstance/quilt-evolve": "*"
+  },
+  "peerDependenciesMeta": {
+    "@superinstance/quilt-evolve": {
+      "optional": true
+    }
   }
 }

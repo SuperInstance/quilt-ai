@@ -1,5 +1,5 @@
 /**
- * @quilt/ai — Cloudflare Workers AI provider
+ * @superinstance/quilt-ai — Cloudflare Workers AI provider
  * ============================================================================
  * Cloudflare Workers AI — runs on the edge, free tier available.
  *

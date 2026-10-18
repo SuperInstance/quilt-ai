@@ -1,10 +1,10 @@
 /**
- * @quilt/ai — AI Engine
+ * @superinstance/quilt-ai — AI Engine
  * ============================================================================
  * The main AI Engine — manages all 4 providers, handles caching, routing,
  * fallback, and cost tracking.
  *
- * The engine is independent of @quilt/core. It can be used standalone
+ * The engine is independent of @superinstance/quilt-core. It can be used standalone
  * (just pass it a cell config) or wired into a Quilt sheet (where AI cells
  * are evaluated as part of the reactive graph).
  * ============================================================================

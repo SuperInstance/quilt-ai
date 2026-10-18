@@ -1,5 +1,5 @@
 /**
- * @quilt/ai — Kimi (Moonshot) provider
+ * @superinstance/quilt-ai — Kimi (Moonshot) provider
  * ============================================================================
  * Moonshot AI — Kimi models.
  *

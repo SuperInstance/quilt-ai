@@ -1,5 +1,5 @@
 /**
- * @quilt/ai — types
+ * @superinstance/quilt-ai — types
  * ============================================================================
  * The type definitions for AI cells in Quilt.
  *
